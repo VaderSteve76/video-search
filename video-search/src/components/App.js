@@ -11,13 +11,20 @@ export default class App extends Component {
     selectedVideo: null
   }
 
+  componentDidMount() {
+    this.onTermSubmit('Vs Code');
+  }
+
   onTermSubmit = async (term) => {
     const res = await youtube.get('/search', {
       params: {
         q: term
       }
     });
-    this.setState({ videos: res.data.items })
+    this.setState({ 
+      videos: res.data.items,
+      selectedVideo: res.data.items[0]
+    });
   }
 
   onVideoSelect = (video) => {
